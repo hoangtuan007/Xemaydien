@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xưởng Xe Điện 3D</title>
+  <meta name="description" content="Học cách tháo, lắp xe máy điện và hiểu hệ thống điện, động cơ một cách trực quan bằng mô hình 3D tương tác.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ffb703'/%3E%3Cpath d='M18 4 8 18h7l-2 10 10-14h-7z' fill='%2314181d'/%3E%3C/svg%3E">
+  <script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
+</head>
+<body data-mode="disassemble">
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M18 4 8 18h7l-2 10 10-14h-7z"/></svg></span>
+      <div>
+        <h1>Xưởng Xe Điện 3D</h1>
+        <p>Tháo · Lắp · Hiểu điện và động cơ xe máy điện</p>
+      </div>
+    </div>
+    <nav class="models" id="modelTabs" aria-label="Chọn mẫu xe"></nav>
+    <nav class="modes" id="modeTabs" aria-label="Chế độ học">
+      <button data-mode="disassemble" class="active"><span>🔧</span>Tháo rời</button>
+      <button data-mode="assemble"><span>🧩</span>Lắp ráp</button>
+      <button data-mode="electric"><span>⚡</span>Sơ đồ điện</button>
+      <button data-mode="challenge"><span>⏱</span>Thử thách</button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="stage" id="stage">
+      <canvas id="scene" aria-label="Mô hình 3D xe máy điện, kéo để xoay, cuộn để phóng to"></canvas>
+
+      <div class="hud-top">
+        <div>
+          <div class="model-title" id="modelTitle"></div>
+          <div class="model-kind" id="modelKind"></div>
+        </div>
+        <div class="progress">
+          <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+          <span id="progressText"></span>
+        </div>
+      </div>
+
+      <div class="challenge-hud" id="challengeHud" hidden>
+        <div><span>Thời gian</span><b id="cTime">0:00</b></div>
+        <div><span>Lỗi</span><b id="cMist">0</b></div>
+        <div><span>Gợi ý</span><b id="cHints">0</b></div>
+      </div>
+
+      <div class="speedo" id="speedo" hidden>
+        <div class="sp-num"><b id="sSpeed">0</b><span>km/h</span></div>
+        <div class="sp-sub"><span>🔋 <b id="sSoc">0%</b></span><span>⚡ <b id="sPower">0 kW</b></span></div>
+      </div>
+
+      <div class="legend" id="legend" hidden>
+        <span><i class="w hv"></i>Cao áp DC (pin)</span>
+        <span><i class="w phase"></i>3 pha U/V/W (động cơ)</span>
+        <span><i class="w lv"></i>12 V (đèn, còi, đồng hồ)</span>
+        <span><i class="w signal"></i>Tín hiệu / CAN</span>
+        <span><i class="w charge"></i>Sạc</span>
+      </div>
+
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Góc nhìn">
+          <button data-view="iso" title="Góc 3/4">3D</button>
+          <button data-view="right" title="Nhìn bên phải">Phải</button>
+          <button data-view="left" title="Nhìn bên trái">Trái</button>
+          <button data-view="front" title="Nhìn từ trước">Trước</button>
+          <button data-view="top" title="Nhìn từ trên">Trên</button>
+        </div>
+        <div class="toggles">
+          <label><input type="checkbox" data-opt="xray"> X-quang</label>
+          <label><input type="checkbox" data-opt="wires"> Dây điện</label>
+          <label><input type="checkbox" data-opt="hideRemoved"> Ẩn phần đã tháo</label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="btnHint" title="Phím tắt: H">💡 Gợi ý bước tiếp</button>
+        <button class="btn" id="btnUndo" title="Ctrl + Z">↶ Hoàn tác</button>
+        <button class="btn" id="btnExplode">Tháo toàn bộ</button>
+        <button class="btn" id="btnAssemble">Lắp toàn bộ</button>
+      </div>
+
+      <div class="tooltip" id="tooltip" hidden></div>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      <div class="hint-mouse">Kéo để xoay · Cuộn để phóng to · Chuột phải để dịch · Nhấp đúp để tháo/lắp</div>
+    </section>
+
+    <aside class="panel">
+      <section class="card" id="infoCard"></section>
+
+      <section class="card" id="simPanel" hidden>
+        <div class="sim-status off" id="simStatus">Xe chưa chạy được</div>
+        <div class="sim-controls">
+          <label class="switch"><input type="checkbox" id="simKey"><span></span>Khoá điện</label>
+          <label class="switch"><input type="checkbox" id="simStand"><span></span>Gạt chân chống lên</label>
+          <label class="switch"><input type="checkbox" id="simBrake"><span></span>Bóp phanh</label>
+          <label class="switch"><input type="checkbox" id="simCharge"><span></span>Cắm sạc</label>
+        </div>
+        <div class="throttle">
+          <label for="simThrottle">Tay ga <b id="throttleVal">0%</b></label>
+          <input type="range" id="simThrottle" min="0" max="100" value="0">
+        </div>
+        <div class="sim-row">
+          <div class="seg small" role="group" aria-label="Chế độ lái">
+            <button data-drive="eco" class="active">ECO</button>
+            <button data-drive="sport">SPORT</button>
+          </div>
+          <button class="btn" id="simHorn">📯 Giữ để bấm còi</button>
+          <button class="btn primary" id="simQuick">▶ Chạy thử nhanh</button>
+        </div>
+        <div class="readouts">
+          <div><span>Tốc độ</span><b id="rSpeed">0</b><em>km/h</em></div>
+          <div><span>Công suất</span><b id="rPower">0</b><em>kW</em></div>
+          <div><span>Dòng điện pin</span><b id="rCurrent">0</b><em>A</em></div>
+          <div><span>Pin</span><b id="rSoc">0</b><em>%</em><div class="soc"><i id="socBar"></i></div></div>
+        </div>
+        <ul class="reasons" id="simReasons"></ul>
+        <h4>Sơ đồ khối</h4>
+        <div id="schematic" class="schem-wrap"></div>
+        <details class="explain">
+          <summary>Dòng điện đi như thế nào?</summary>
+          <ol>
+            <li><b>Bật khoá</b> → tín hiệu "đánh thức" tới BMS trong pin.</li>
+            <li><b>BMS</b> kiểm tra cell, đóng <b>rơ-le</b> → điện cao áp DC chạy ra bó dây.</li>
+            <li>Một nhánh vào <b>DC-DC</b>, hạ xuống 12 V nuôi đèn, còi, đồng hồ.</li>
+            <li>Nhánh chính vào <b>bộ điều khiển</b>. Nó chỉ cho chạy khi chân chống đã gạt và không bóp phanh.</li>
+            <li>Vặn ga → bộ điều khiển băm điện DC thành <b>3 pha xoay chiều</b>, tạo từ trường quay làm động cơ quay.</li>
+            <li>Khi nhả ga hoặc phanh, nhiều xe <b>hãm tái sinh</b>: động cơ thành máy phát, nạp ngược một ít điện về pin.</li>
+          </ol>
+        </details>
+      </section>
+
+      <section class="card" id="partsCard">
+        <h3 class="card-title">Danh sách bộ phận</h3>
+        <div id="partsList"></div>
+      </section>
+
+      <section class="card" id="aboutModel"></section>
+    </aside>
+  </main>
+
+  <dialog id="doneDialog">
+    <h2>🎉 Hoàn thành!</h2>
+    <div id="doneBody"></div>
+    <div class="dlg-actions">
+      <button class="btn" id="doneElectric">Thử chạy xe</button>
+      <button class="btn primary" id="doneAgain">Chơi lại</button>
+    </div>
+  </dialog>
+
+  <noscript>Trang này cần JavaScript và trình duyệt hỗ trợ WebGL.</noscript>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
