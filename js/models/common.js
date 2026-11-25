@@ -12,7 +12,7 @@ export const CATS = {
 };
 
 // Khối pin: hộp vỏ nhôm, các cell bên trong (nhìn qua khe), mạch BMS gắn cạnh
-export function batteryPack({ pos, size, color = 0x23324a, label = 0xff7a1a, cellRows = 4, bmsSide = 1 }) {
+export function batteryPack({ pos, size, color = 0x23324a, label = 0xff7a1a, bmsSide = 1, handle = false }) {
   const [w, h, d] = size;
   const g = new THREE.Group();
   g.add(box(w, h, d, mat(color, { metal: 0.55, rough: 0.35 }), [0, 0, 0], [0, 0, 0], 0.015));
@@ -32,6 +32,11 @@ export function batteryPack({ pos, size, color = 0x23324a, label = 0xff7a1a, cel
   g.add(cyl(0.012, 0.025, mat(0xd32f2f), [-w / 2 + 0.04, h / 2 + 0.012, d * 0.25], 'y'));
   g.add(cyl(0.012, 0.025, mat(0x212121), [-w / 2 + 0.04, h / 2 + 0.012, -d * 0.25], 'y'));
   g.add(box(0.05, 0.03, 0.04, mat(0xff9800), [-w / 2 + 0.03, h / 2 + 0.015, 0], [0, 0, 0], 0.004));
+  if (handle) {
+    g.add(rod([-w * 0.25, h / 2, 0], [-w * 0.2, h / 2 + 0.04, 0], 0.008, MAT.black()));
+    g.add(rod([w * 0.25, h / 2, 0], [w * 0.2, h / 2 + 0.04, 0], 0.008, MAT.black()));
+    g.add(rod([-w * 0.2, h / 2 + 0.04, 0], [w * 0.2, h / 2 + 0.04, 0], 0.01, MAT.black()));
+  }
   g.position.set(...pos);
   return wrap(g);
 }

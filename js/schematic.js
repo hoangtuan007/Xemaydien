@@ -12,6 +12,8 @@ const NODES = {
   'dc-dc': { x: C[1], y: 246, label: 'DC-DC 12V' },
   'dong-co': { x: C[2], y: 246, label: 'Động cơ' },
   xich: { x: C[3], y: 246, label: 'Xích' },
+  'day-dai': { x: C[3], y: 246, label: 'Dây đai' },
+  'pin-2': { x: C[0], y: 246, label: 'Pin 2' },
   'banh-sau': { x: C[3], y: 326, label: 'Bánh sau' },
   'den-pha': { x: C[0], y: 426, label: 'Đèn pha' },
   coi: { x: C[1], y: 426, label: 'Còi' },
@@ -48,9 +50,10 @@ export class Schematic {
     this.nodes = {};
 
     const edges = model.wires.map((w) => ({ ...w }));
-    if (model.id === 'weaver') {
-      edges.push({ id: 'm1', from: 'dong-co', to: 'xich', type: 'mech', ch: 'mech1' });
-      edges.push({ id: 'm2', from: 'xich', to: 'banh-sau', type: 'mech', ch: 'mech2' });
+    const tr = model.parts.find((p) => p.id === 'xich' || p.id === 'day-dai');
+    if (tr) {
+      edges.push({ id: 'm1', from: 'dong-co', to: tr.id, type: 'mech', ch: 'mech1', label: 'Liên kết cơ khí' });
+      edges.push({ id: 'm2', from: tr.id, to: 'banh-sau', type: 'mech', ch: 'mech2', label: 'Liên kết cơ khí' });
     }
     // phân bổ độ lệch khi nhiều cạnh cùng đi vào một nút
     const inCount = {}, inIdx = {}, outCount = {}, outIdx = {};
@@ -101,10 +104,10 @@ export class Schematic {
       g.classList.toggle('missing', !has(id));
       g.classList.toggle('selected', id === selected);
       let powered = false;
-      if (['pin', 'khoa'].includes(id)) powered = r.ch.key > 0 || r.charging;
+      if (['pin', 'pin-2', 'khoa'].includes(id)) powered = r.ch.key > 0 || r.charging;
       else if (['ro-le', 'bo-dieu-khien', 'dc-dc'].includes(id)) powered = r.hvOn;
       else if (id === 'dong-co') powered = r.motorOn;
-      else if (['xich', 'banh-sau'].includes(id)) powered = r.motorOn && r.wheelDriven;
+      else if (['xich', 'day-dai', 'banh-sau'].includes(id)) powered = r.motorOn && r.wheelDriven;
       else if (id === 'den-pha') powered = r.lamps.head;
       else if (id === 'den-hau') powered = r.lamps.tail;
       else if (id === 'dong-ho') powered = r.lamps.dash;
@@ -117,7 +120,7 @@ export class Schematic {
     });
     this.edges.forEach(({ def, paths }) => {
       let rate = r.ch[def.ch] || 0;
-      if (def.type === 'mech') rate = r.motorOn && (def.ch === 'mech1' ? has('xich') : r.wheelDriven) ? 0.4 + s.throttle * 2 : 0;
+      if (def.type === 'mech') rate = r.motorOn && (def.ch === 'mech1' ? has(def.to) : r.wheelDriven) ? 0.4 + s.throttle * 2 : 0;
       const ok = has(def.from) && has(def.to) && (def.type === 'mech' || has('bo-day'));
       paths.forEach((p) => {
         p.classList.toggle('on', ok && rate > 0);

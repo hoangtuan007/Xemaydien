@@ -179,14 +179,14 @@ export function sprocket(r, z, teeth, material) {
 }
 
 // Vòng xích khép kín quanh hai nhông (cùng mặt phẳng z)
-export function chainLoop(c1, r1, c2, r2, z, material) {
+export function chainLoop(c1, r1, c2, r2, z, material, tube = 0.006) {
   // c1: nhông trước (phải), c2: nhông sau (trái) - c1.x > c2.x
   const pts = [];
   const n = 18;
   for (let i = 0; i <= n; i++) { const a = -Math.PI / 2 + (i / n) * Math.PI; pts.push([c1[0] + Math.cos(a) * r1, c1[1] + Math.sin(a) * r1, z]); }
   for (let i = 0; i <= n; i++) { const a = Math.PI / 2 + (i / n) * Math.PI; pts.push([c2[0] + Math.cos(a) * r2, c2[1] + Math.sin(a) * r2, z]); }
   const curve = new THREE.CatmullRomCurve3(pts.map((p) => new THREE.Vector3(...p)), true, 'centripetal');
-  const geo = new THREE.TubeGeometry(curve, 160, 0.006, 6, true);
+  const geo = new THREE.TubeGeometry(curve, 160, tube, 6, true);
   const m = new THREE.Mesh(geo, material);
   m.castShadow = true;
   return m;

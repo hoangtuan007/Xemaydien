@@ -77,14 +77,6 @@ a[data-sel] { color: var(--info); cursor: pointer; text-decoration: underline; t
 .brand h1 { font-size: 17px; font-weight: 700; }
 .brand p { margin: 0; font-size: 12px; color: var(--muted); }
 .models, .modes { display: flex; gap: 6px; }
-.model-tab {
-  display: flex; flex-direction: column; align-items: flex-start; padding: 6px 12px; border-radius: 10px;
-  border: 1px solid var(--line); background: var(--panel-2); min-width: 120px; text-align: left;
-  border-left: 4px solid var(--c);
-}
-.model-tab .brand-name { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
-.model-tab .model-name { font-weight: 600; }
-.model-tab.active { border-color: var(--c); box-shadow: 0 0 0 1px var(--c) inset; }
 .modes { background: var(--panel-2); padding: 4px; border-radius: 12px; border: 1px solid var(--line); }
 .modes button { border: 0; background: transparent; padding: 7px 12px; border-radius: 9px; font-weight: 500; display: flex; gap: 6px; align-items: center; }
 .modes button.active { background: var(--accent); color: var(--accent-ink); }
@@ -108,7 +100,7 @@ body[data-mode="electric"] #simPanel { order: -1; }
 .progress-track { width: 140px; height: 7px; background: var(--line); border-radius: 9px; overflow: hidden; }
 .progress-bar { height: 100%; background: var(--accent); transition: width .4s; }
 
-.toolbar { position: absolute; left: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.toolbar { position: absolute; left: 12px; bottom: 12px; max-width: calc(100% - 470px); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
 .seg { display: inline-flex; background: var(--glass); border: 1px solid var(--line); border-radius: 10px; padding: 3px; backdrop-filter: blur(8px); }
 .seg button { border: 0; background: transparent; padding: 5px 10px; border-radius: 7px; font-size: 12.5px; }
 .seg button:hover, .seg button.active { background: var(--accent); color: var(--accent-ink); }
@@ -124,7 +116,7 @@ body[data-mode="electric"] #simPanel { order: -1; }
 .btn.held { background: var(--accent); color: var(--accent-ink); }
 .card .btn { box-shadow: none; }
 
-.hint-mouse { position: absolute; left: 50%; transform: translateX(-50%); bottom: 96px; font-size: 12px; color: var(--muted); background: var(--glass); padding: 4px 10px; border-radius: 20px; pointer-events: none; white-space: nowrap; opacity: .9; }
+.hint-mouse { position: absolute; right: 12px; bottom: 58px; font-size: 12px; color: var(--muted); background: var(--glass); padding: 4px 10px; border-radius: 20px; pointer-events: none; white-space: nowrap; opacity: .9; }
 .tooltip { position: absolute; left: 0; top: 0; pointer-events: none; background: var(--panel); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 9px; padding: 6px 10px; max-width: 240px; display: flex; flex-direction: column; font-size: 12.5px; z-index: 5; }
 .tooltip span { color: var(--muted); font-size: 12px; }
 .toast { position: absolute; top: 64px; left: 50%; transform: translate(-50%, -10px); opacity: 0; transition: .25s; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--info); padding: 9px 14px; border-radius: 10px; box-shadow: var(--shadow); max-width: min(560px, 90%); pointer-events: none; z-index: 6; font-weight: 500; }
@@ -270,6 +262,62 @@ dialog h2 { margin-bottom: 8px; }
 .stars { font-size: 34px; color: var(--accent); letter-spacing: 4px; }
 .dlg-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
 
+/* ---------- Chọn mẫu xe ---------- */
+.model-btn { display: flex; align-items: center; gap: 10px; padding: 6px 12px 6px 8px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel-2); border-left: 4px solid var(--c); text-align: left; min-width: 210px; }
+.model-btn:hover { border-color: var(--c); }
+.model-btn svg, .md-card svg { width: 54px; height: 27px; fill: var(--c); flex: none; }
+.model-btn span { display: flex; flex-direction: column; line-height: 1.2; }
+.model-btn small { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.model-btn b { font-size: 15px; }
+.model-btn i { margin-left: auto; font-style: normal; color: var(--muted); }
+.model-dialog { width: min(860px, 94vw); max-height: 88vh; }
+.md-head { display: flex; align-items: center; }
+.md-head h2 { font-size: 20px; }
+.model-dialog section + section { margin-top: 16px; }
+.model-dialog h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 8px; }
+.md-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+.md-card { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel-2); text-align: left; border-top: 4px solid var(--c); }
+.md-card:hover, .md-card:focus-visible { border-color: var(--c); outline: none; }
+.md-card.active { box-shadow: 0 0 0 2px var(--c) inset; }
+.md-card svg { width: 90px; height: 45px; margin-bottom: 4px; }
+.md-card b { font-size: 16px; }
+.md-kind { font-size: 12.5px; color: var(--muted); }
+.md-chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 8px; }
+.md-chips em { font-style: normal; font-size: 11px; padding: 1px 7px; border-radius: 20px; background: var(--line); }
+
+/* ---------- Khung hướng dẫn lắp ---------- */
+.guide { pointer-events: none; position: absolute; top: 64px; left: 12px; width: min(330px, 44%); max-height: calc(100% - 140px); overflow-y: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 12px 14px; z-index: 4; font-size: 13px; }
+.guide .icon-btn { pointer-events: auto; }
+body[data-mode="electric"] .guide { top: 210px; }
+.g-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.g-head b { font-size: 15px; }
+.g-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+.g-badge.info { background: color-mix(in srgb, var(--info) 18%, transparent); color: var(--info); }
+.g-badge.ok { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
+.g-badge.warn { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+.g-attach { color: var(--text); margin-bottom: 6px; }
+.g-attach span { color: var(--muted); }
+.g-status { margin-bottom: 6px; }
+.st { display: block; padding: 6px 9px; border-radius: 8px; font-weight: 600; }
+.st.ok { background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); }
+.st.err { background: color-mix(in srgb, var(--err) 12%, transparent); color: var(--err); }
+.st.warn { background: color-mix(in srgb, var(--warn) 14%, transparent); color: var(--warn); }
+.st.info { background: color-mix(in srgb, var(--info) 12%, transparent); color: var(--info); }
+.g-steps { margin: 0; padding-left: 0; list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 4px; }
+.g-steps li { counter-increment: s; display: grid; grid-template-columns: 22px 1fr; gap: 6px; align-items: start; padding: 3px 4px; border-radius: 7px; transition: background .25s; }
+.g-steps li::before { content: counter(s); width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; background: var(--line); }
+.g-steps li.now { background: color-mix(in srgb, var(--ok) 14%, transparent); }
+.g-steps li.now::before { background: var(--ok); color: #fff; }
+.g-steps li.done { color: var(--muted); }
+.g-steps li.done::before { content: "✓"; background: var(--ok); color: #fff; }
+.g-steps li.danger { color: var(--err); font-weight: 500; }
+.g-meta { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+.howto { background: var(--panel-2); border-radius: 10px; padding: 8px 10px; font-size: 13px; }
+.howto p { margin: 0 0 3px; }
+.howto ol { margin: 6px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 3px; }
+.howto li.danger { color: var(--err); font-weight: 500; }
+#aboutModel a { color: var(--info); }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
   .top { gap: 10px; }
@@ -278,8 +326,13 @@ dialog h2 { margin-bottom: 8px; }
 @media (max-width: 860px) {
   .top { padding: 10px 16px; }
   .brand { width: 100%; }
-  .models, .modes { width: 100%; }
-  .model-tab { flex: 1; min-width: 0; }
+  .model-btn, .modes { width: 100%; }
+  .guide { left: 12px; right: 12px; width: auto; top: auto; bottom: calc(100% - 56vh + 8px); max-height: 38vh; padding: 8px 10px; font-size: 12.5px; }
+  body[data-mode="electric"] .guide { top: auto; }
+  .g-attach span, .g-meta { display: none; }
+  .g-steps li { display: none; }
+  .g-steps li.now, .g-steps:not(:has(.now)) li:first-child { display: grid; }
+  .g-status { margin-bottom: 4px; }
   .modes button { flex: 1; justify-content: center; padding: 7px 4px; font-size: 13px; }
   .modes button span { display: none; }
   .layout { grid-template-columns: 1fr; }

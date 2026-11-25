@@ -21,7 +21,7 @@
         <p>Tháo · Lắp · Hiểu điện và động cơ xe máy điện</p>
       </div>
     </div>
-    <nav class="models" id="modelTabs" aria-label="Chọn mẫu xe"></nav>
+    <button class="model-btn" id="modelBtn" aria-haspopup="dialog" title="Chọn mẫu xe"></button>
     <nav class="modes" id="modeTabs" aria-label="Chế độ học">
       <button data-mode="disassemble" class="active"><span>🔧</span>Tháo rời</button>
       <button data-mode="assemble"><span>🧩</span>Lắp ráp</button>
@@ -71,11 +71,13 @@
           <button data-view="left" title="Nhìn bên trái">Trái</button>
           <button data-view="front" title="Nhìn từ trước">Trước</button>
           <button data-view="top" title="Nhìn từ trên">Trên</button>
+          <button data-view="wide" title="Nhìn toàn bộ bàn lắp ráp">Toàn cảnh</button>
         </div>
         <div class="toggles">
           <label><input type="checkbox" data-opt="xray"> X-quang</label>
           <label><input type="checkbox" data-opt="wires"> Dây điện</label>
           <label><input type="checkbox" data-opt="hideRemoved"> Ẩn phần đã tháo</label>
+          <label><input type="checkbox" data-opt="sound"> Âm thanh</label>
         </div>
       </div>
 
@@ -86,9 +88,17 @@
         <button class="btn" id="btnAssemble">Lắp toàn bộ</button>
       </div>
 
+      <div class="guide" id="guide" hidden aria-live="polite">
+        <div class="g-head"><span class="g-badge" id="gBadge">Cách lắp</span><b id="gTitle"></b><button class="icon-btn" id="gClose" aria-label="Đóng hướng dẫn">✕</button></div>
+        <div class="g-attach" id="gAttach"></div>
+        <div class="g-status" id="gStatus"></div>
+        <ol class="g-steps" id="gSteps"></ol>
+        <div class="g-meta" id="gMeta"></div>
+      </div>
+
       <div class="tooltip" id="tooltip" hidden></div>
       <div class="toast" id="toast" role="status" aria-live="polite"></div>
-      <div class="hint-mouse">Kéo để xoay · Cuộn để phóng to · Chuột phải để dịch · Nhấp đúp để tháo/lắp</div>
+      <div class="hint-mouse" id="hintMouse"></div>
     </section>
 
     <aside class="panel">
@@ -144,6 +154,12 @@
       <section class="card" id="aboutModel"></section>
     </aside>
   </main>
+
+  <dialog id="modelDialog" class="model-dialog" aria-labelledby="mdTitle">
+    <div class="md-head"><h2 id="mdTitle">Chọn mẫu xe</h2><button class="icon-btn" id="mdClose" aria-label="Đóng">✕</button></div>
+    <p class="muted small">Mỗi mẫu có cách bố trí động cơ, pin và truyền động khác nhau – hãy thử so sánh.</p>
+    <div id="modelGrid"></div>
+  </dialog>
 
   <dialog id="doneDialog">
     <h2>🎉 Hoàn thành!</h2>

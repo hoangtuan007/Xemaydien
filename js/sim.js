@@ -9,11 +9,12 @@ export function simulate(model, has, s) {
   const blockers = [];
   const warnings = [];
   const harness = has('bo-day');
-  const battery = has('pin');
+  const battery = has('pin') || (model.dualBattery && has('pin-2'));
   const relay = has('ro-le');
   const keyMod = has('khoa');
 
   if (!battery) blockers.push('Chưa lắp khối pin – xe không có nguồn.');
+  else if (model.dualBattery && !(has('pin') && has('pin-2'))) warnings.push('Chỉ có 1 pin – xe vẫn chạy nhưng quãng đường giảm khoảng một nửa.');
   if (!harness) blockers.push('Chưa lắp bó dây điện – các bộ phận không được nối với nhau.');
   if (!relay) blockers.push('Thiếu rơ-le nguồn / cầu chì – mạch cao áp bị hở.');
   if (!keyMod) blockers.push('Thiếu khoá điện – BMS không nhận được lệnh bật nguồn.');
@@ -42,10 +43,10 @@ export function simulate(model, has, s) {
 
   // Truyền động tới bánh
   let wheelDriven = motorOn;
-  if (model.id === 'weaver') {
-    if (!has('xich')) { warnings.push('Thiếu xích – động cơ quay nhưng bánh sau không quay.'); wheelDriven = false; }
-    if (!has('banh-sau')) { warnings.push('Thiếu bánh sau.'); wheelDriven = false; }
-  }
+  const DT_NAME = { xich: 'xích', 'day-dai': 'dây đai', 'banh-sau': 'bánh sau' };
+  (model.driveTrain || []).forEach((id) => {
+    if (!has(id)) { warnings.push(`Thiếu ${DT_NAME[id] || id} – động cơ quay nhưng bánh sau không quay.`); wheelDriven = false; }
+  });
 
   const sportK = s.mode === 'sport' ? 1 : 0.7;
   const powerW = motorOn ? model.pmax * s.throttle * sportK : 0;
