@@ -318,6 +318,23 @@ body[data-mode="electric"] .guide { top: 210px; }
 .howto li.danger { color: var(--err); font-weight: 500; }
 #aboutModel a { color: var(--info); }
 
+/* ---------- Ảnh xe thật ---------- */
+.realphoto { position: absolute; right: 12px; top: 128px; width: min(260px, 32%); margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; z-index: 3; }
+body[data-mode="electric"] .realphoto, body.challenge-on .realphoto { top: 210px; }
+.realphoto img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--panel-2); }
+.realphoto figcaption { font-size: 11px; line-height: 1.4; padding: 6px 9px 8px; color: var(--muted); }
+.realphoto figcaption b { color: var(--text); font-size: 12px; }
+.realphoto a, .part-photo a { color: var(--info); }
+.rp-close { position: absolute; top: 6px; right: 6px; background: var(--glass); backdrop-filter: blur(6px); }
+.rp-nav { position: absolute; top: 6px; left: 6px; display: flex; align-items: center; gap: 2px; background: var(--glass); backdrop-filter: blur(6px); border-radius: 8px; font-size: 11px; padding: 0 2px; }
+.md-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; margin-bottom: 6px; background: var(--line); }
+.part-photo { margin: 0 0 10px; }
+.photo-strip { display: flex; gap: 6px; overflow-x: auto; margin: 8px 0 4px; }
+.ps-thumb { padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex: none; background: none; }
+.ps-thumb img { display: block; width: 88px; height: 66px; object-fit: cover; }
+.part-photo img { display: block; width: 100%; max-height: 220px; object-fit: cover; border-radius: 10px; background: var(--panel-2); }
+.part-photo figcaption { font-size: 11.5px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
   .top { gap: 10px; }
@@ -348,6 +365,8 @@ body[data-mode="electric"] .guide { top: 210px; }
   .progress-track { width: 70px; }
   .legend { display: none !important; }
   .readouts { grid-template-columns: repeat(2, 1fr); }
+  .realphoto { top: auto; bottom: calc(100% - 56vh + 10px); left: 12px; right: auto; width: 140px; }
+  .realphoto figcaption { display: none; }
   .speedo, .challenge-hud { top: auto; bottom: calc(100% - 56vh + 10px); right: 12px; }
   .speedo { padding: 6px 12px; min-width: 0; }
   .sp-num b { font-size: 26px; }

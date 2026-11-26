@@ -51,6 +51,13 @@
         <div><span>Gợi ý</span><b id="cHints">0</b></div>
       </div>
 
+      <figure class="realphoto" id="realPhoto" hidden>
+        <img id="rpImg" alt="">
+        <figcaption id="rpCap"></figcaption>
+        <div class="rp-nav" id="rpNav" hidden><button class="icon-btn" id="rpPrev" aria-label="Ảnh trước">‹</button><span id="rpCount"></span><button class="icon-btn" id="rpNext" aria-label="Ảnh sau">›</button></div>
+        <button class="icon-btn rp-close" id="rpClose" aria-label="Ẩn ảnh xe thật">✕</button>
+      </figure>
+
       <div class="speedo" id="speedo" hidden>
         <div class="sp-num"><b id="sSpeed">0</b><span>km/h</span></div>
         <div class="sp-sub"><span>🔋 <b id="sSoc">0%</b></span><span>⚡ <b id="sPower">0 kW</b></span></div>
@@ -78,6 +85,7 @@
           <label><input type="checkbox" data-opt="wires"> Dây điện</label>
           <label><input type="checkbox" data-opt="hideRemoved"> Ẩn phần đã tháo</label>
           <label><input type="checkbox" data-opt="sound"> Âm thanh</label>
+          <label hidden><input type="checkbox" data-opt="photo"> Ảnh xe thật</label>
         </div>
       </div>
 

@@ -14,6 +14,22 @@ const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* bỏ qua */ } },
 };
+// Ảnh thật có giấy phép mở (Wikimedia Commons), khai báo trong assets/photos/photos.json
+let PHOTOS = { models: {}, parts: {} };
+const photoUrl = (ph) => `assets/photos/${ph.file}`;
+function credit(ph) {
+  const who = ph.author ? esc(ph.author) : 'Không rõ tác giả';
+  const lic = ph.licenseUrl ? `<a href="${esc(ph.licenseUrl)}" target="_blank" rel="noopener">${esc(ph.license)}</a>` : esc(ph.license);
+  return `Ảnh: ${who} · ${lic} · <a href="${esc(ph.source)}" target="_blank" rel="noopener">Wikimedia Commons</a>`;
+}
+const modelPhotos = (m) => PHOTOS.models[m.id] || [];
+function partPhoto(partId) {
+  const drive = M.drive === 'hub' ? 'hub' : M.drive === 'side-belt' ? 'side' : 'mid';
+  const keys = [`${M.id}:${partId}`, partId === 'dong-co' ? `dong-co:${drive}` : null, partId === 'pin-2' ? 'pin' : null, partId].filter(Boolean);
+  for (const k of keys) if (PHOTOS.parts[k]?.length) return PHOTOS.parts[k][0];
+  return null;
+}
+
 const DRIVE_LABEL = { hub: 'Động cơ in-hub', 'side-belt': 'Động cơ bên + dây đai', 'mid-chain': 'Động cơ giữa + xích' };
 const BATTERY_LABEL = { floor: 'Pin dưới sàn', 'floor-big': 'Pin lớn dưới sàn', 'seat-dual': '2 pin rời dưới yên', frame: 'Pin trong khung' };
 
@@ -118,7 +134,7 @@ let hoveredWire = null;
 const flashes = new Map();
 let history = [];
 let mode = 'disassemble';
-const opts = { xray: false, wires: false, hideRemoved: false, sound: store.get('ev.sound', true) };
+const opts = { xray: false, wires: false, hideRemoved: false, sound: store.get('ev.sound', true), photo: store.get('ev.photo', true) };
 let sim = createSimState();
 let simResult = null;
 let challenge = null;
@@ -182,7 +198,7 @@ function loadModel(id) {
   });
   M.parts.forEach((def) => def.after.forEach((a) => dependents[a]?.push(def.id)));
   buildWires();
-  selected = null; hovered = null; history = []; challenge = null;
+  selected = null; hovered = null; history = []; challenge = null; photoIdx = 0;
   sim = createSimState();
   schematic.setModel(M);
   applyXray();
@@ -867,7 +883,7 @@ function renderModelGrid() {
     <section><h3>${esc(brand)}</h3><div class="md-cards">
     ${LINEUP.filter((m) => m.brand === brand).map((m) => `
       <button class="md-card ${m === M ? 'active' : ''}" data-model="${m.id}" style="--c:${m.accent}">
-        ${silhouette(m)}
+        ${modelPhotos(m)[0] ? `<img class="md-photo" src="${photoUrl(modelPhotos(m)[0])}" alt="Ảnh thật ${esc(m.brand)} ${esc(m.name)}" loading="lazy">` : silhouette(m)}
         <b>${esc(m.name)}</b>
         <span class="md-kind">${esc(m.kind)}</span>
         <span class="md-chips"><em>${DRIVE_LABEL[m.drive]}</em><em>${BATTERY_LABEL[m.battery]}</em><em>${m.parts.length} bộ phận</em></span>
@@ -1000,6 +1016,7 @@ function renderInfo() {
       </div>
       <h3>${esc(d.name)}</h3>
       <p>${esc(d.desc)}</p>
+      ${(() => { const ph = partPhoto(d.id); return ph ? `<figure class="part-photo"><img src="${photoUrl(ph)}" alt="${esc(ph.title || d.name)}" loading="lazy"><figcaption>${esc(ph.caption || 'Ảnh minh hoạ loại bộ phận này trên xe thật')} · ${credit(ph)}</figcaption></figure>` : ''; })()}
       ${d.specs?.length ? `<dl class="specs">${d.specs.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>` : ''}
       ${order}
       ${howtoHtml(p)}
@@ -1023,6 +1040,7 @@ function renderAbout() {
     <div class="md-chips"><em>${DRIVE_LABEL[M.drive]}</em><em>${BATTERY_LABEL[M.battery]}</em></div>
     <dl class="specs">${M.summary.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
     <p class="note">${esc(M.layoutNote)}</p>
+    ${modelPhotos(M).length ? `<div class="photo-strip">${modelPhotos(M).map((ph, i) => `<button class="ps-thumb" data-photo="${i}" aria-label="Xem ảnh ${i + 1}"><img src="${photoUrl(ph)}" alt="" loading="lazy"></button>`).join('')}</div><p class="tiny muted">Ảnh xe thật: ${modelPhotos(M).map((ph) => credit(ph)).join(' — ')}</p>` : ''}
     ${M.sources?.length ? `<p class="tiny muted">Nguồn: ${M.sources.map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join(' · ')}</p>` : ''}
     <p class="muted tiny">Thông số tham khảo từ công bố của hãng và báo chí; mô hình 3D, vị trí linh kiện và đường dây là mô phỏng đơn giản hoá để học tập, không phải tài liệu sửa chữa chính hãng.</p>`;
 }
@@ -1103,6 +1121,7 @@ function setOpt(k, v) {
   if (box) box.checked = v;
   if (k === 'xray') applyXray();
   if (k === 'sound') store.set('ev.sound', v);
+  if (k === 'photo') { store.set('ev.photo', v); renderRealPhoto(); }
   $('#legend').hidden = !opts.wires;
 }
 
@@ -1166,7 +1185,33 @@ $('#btnExplode').addEventListener('click', explodeAll);
 $('#btnAssemble').addEventListener('click', assembleAll);
 window.addEventListener('hashchange', () => { const id = location.hash.slice(1); if (MODELS[id] && MODELS[id] !== M) loadModel(id); });
 
+let photoIdx = 0;
+function renderRealPhoto() {
+  const fig = $('#realPhoto');
+  const list = modelPhotos(M);
+  $('[data-opt="photo"]').closest('label').hidden = !list.length;
+  fig.hidden = !opts.photo || !list.length;
+  if (fig.hidden) return;
+  photoIdx = ((photoIdx % list.length) + list.length) % list.length;
+  const ph = list[photoIdx];
+  $('#rpImg').src = photoUrl(ph);
+  $('#rpImg').alt = `Ảnh thật ${M.brand} ${M.name}`;
+  $('#rpCap').innerHTML = `<b>${esc(M.brand)} ${esc(M.name)} – xe thật</b>${ph.caption ? ` · ${esc(ph.caption)}` : ''}<br>${credit(ph)}`;
+  $('#rpNav').hidden = list.length < 2;
+  $('#rpCount').textContent = `${photoIdx + 1}/${list.length}`;
+}
+$('#rpPrev').addEventListener('click', () => { photoIdx--; renderRealPhoto(); });
+$('#rpNext').addEventListener('click', () => { photoIdx++; renderRealPhoto(); });
+$('#rpClose').addEventListener('click', () => setOpt('photo', false));
+$('#aboutModel').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-photo]');
+  if (!b) return;
+  photoIdx = +b.dataset.photo;
+  setOpt('photo', true);
+});
+
 function renderAll() {
+  renderRealPhoto();
   renderModelButton();
   renderProgress();
   renderPartsList();
@@ -1226,6 +1271,11 @@ function frame() {
 }
 
 $('[data-opt="sound"]').checked = opts.sound;
+$('[data-opt="photo"]').checked = opts.photo;
+fetch('assets/photos/photos.json')
+  .then((r) => (r.ok ? r.json() : null))
+  .then((j) => { if (j) { PHOTOS = { models: j.models || {}, parts: j.parts || {} }; photoIdx = 0; renderRealPhoto(); renderInfo(); renderAbout(); } })
+  .catch(() => { /* chưa có ảnh: trang vẫn chạy với hình bóng */ });
 const startId = [location.hash.slice(1), store.get('ev.model', 'evo200')].find((x) => MODELS[x]) || LINEUP[0].id;
 loadModel(startId);
 setMode('disassemble');
