@@ -25,7 +25,7 @@ function credit(ph) {
 const modelPhotos = (m) => PHOTOS.models[m.id] || [];
 function partPhoto(partId) {
   const drive = M.drive === 'hub' ? 'hub' : M.drive === 'side-belt' ? 'side' : 'mid';
-  const keys = [`${M.id}:${partId}`, partId === 'dong-co' ? `dong-co:${drive}` : null, partId === 'pin-2' ? 'pin' : null, partId].filter(Boolean);
+  const keys = [`${M.id}:${partId}`, partId === 'pin-2' ? `${M.id}:pin` : null, partId === 'dong-co' ? `dong-co:${drive}` : null, partId === 'pin-2' ? 'pin' : null, partId].filter(Boolean);
   for (const k of keys) if (PHOTOS.parts[k]?.length) return PHOTOS.parts[k][0];
   return null;
 }

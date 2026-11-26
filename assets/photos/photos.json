@@ -1,0 +1,216 @@
+{
+ "models": {
+  "evo200": [
+   {
+    "file": "vinfast-evo200.jpg",
+    "title": "Newone - Yellow VinFast Evo200 electric scooter.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_Yellow_VinFast_Evo200_electric_scooter.jpg",
+    "caption": "Evo200 màu vàng tại sự kiện"
+   }
+  ],
+  "feliz-s": [
+   {
+    "file": "vinfast-feliz-s.jpg",
+    "title": "NewOne - Xanh SM VinFast Feliz S cyan 01.jpg",
+    "author": "Newone",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:NewOne_-_Xanh_SM_VinFast_Feliz_S_cyan_01.jpg",
+    "caption": "Feliz S màu xanh ngọc đang chạy trên phố"
+   }
+  ],
+  "klara-s": [
+   {
+    "file": "vinfast-klara-s-1.jpg",
+    "title": "Newone -VinFast Klara S red.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-VinFast_Klara_S_red.jpg",
+    "caption": "Klara S màu đỏ"
+   },
+   {
+    "file": "vinfast-klara-s-2.jpg",
+    "title": "Newone - VinFast Klara S 03.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_VinFast_Klara_S_03.jpg",
+    "caption": "Klara S màu xám"
+   },
+   {
+    "file": "vinfast-klara-s-3.jpg",
+    "title": "Newone - VinFast Klara S 05.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_VinFast_Klara_S_05.jpg",
+    "caption": "Thân sau Klara S"
+   }
+  ],
+  "vento-s": [
+   {
+    "file": "vinfast-vento-s-1.jpg",
+    "title": "Newone - White VinFast Vento S 01.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_White_VinFast_Vento_S_01.jpg",
+    "caption": "Vento S màu trắng"
+   },
+   {
+    "file": "vinfast-vento-s-2.jpg",
+    "title": "Newone - White VinFast Vento S 02.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_White_VinFast_Vento_S_02.jpg",
+    "caption": "Vento S – nhìn phía sau"
+   },
+   {
+    "file": "vinfast-vento-s-3.jpg",
+    "title": "Newone - White VinFast Vento S 03.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_White_VinFast_Vento_S_03.jpg",
+    "caption": "Vento S – nhìn bên hông"
+   }
+  ],
+  "theon-s": [
+   {
+    "file": "vinfast-theon-1.jpg",
+    "title": "Newone - VinFast Theon black 006.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_VinFast_Theon_black_006.jpg",
+    "caption": "Ảnh xe Theon đời đầu – Theon S là bản nâng cấp"
+   },
+   {
+    "file": "vinfast-theon-2.jpg",
+    "title": "Newone - VinFast Theon black 008.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_VinFast_Theon_black_008.jpg",
+    "caption": "Ảnh xe Theon đời đầu – Theon S là bản nâng cấp – nhìn trực diện"
+   }
+  ]
+ },
+ "parts": {
+  "pin": [
+   {
+    "file": "part-vinfast-lfp-battery.jpg",
+    "title": "Newone - VinFast scooter LFP battery 1.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_VinFast_scooter_LFP_battery_1.jpg",
+    "caption": "Khối pin LFP của xe máy điện VinFast"
+   }
+  ],
+  "klara-s:pin": [
+   {
+    "file": "part-klara-removable-battery.jpg",
+    "title": "Newone - VinFast lithium-ion battery for Klara scooter by Bosch.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_VinFast_lithium-ion_battery_for_Klara_scooter_by_Bosch.jpg",
+    "caption": "Pin rời có quai xách của VinFast Klara"
+   }
+  ],
+  "dong-co:hub": [
+   {
+    "file": "part-hub-motor-open.jpg",
+    "title": "Wheel hub motor of an electric kick scooter, sidepanel removed (2022).jpg",
+    "author": "Andrez1",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Wheel_hub_motor_of_an_electric_kick_scooter,_sidepanel_removed_(2022).jpg",
+    "caption": "Bên trong động cơ in-hub (của xe trượt điện): vòng cuộn dây stator ở giữa, nam châm gắn trên vỏ bánh"
+   }
+  ],
+  "phanh-truoc": [
+   {
+    "file": "part-brake-caliper.jpg",
+    "title": "Brembo p4-32 Caliper.jpg",
+    "author": "Sinank56",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Brembo_p4-32_Caliper.jpg",
+    "caption": "Ngàm phanh đĩa 4 piston kẹp đĩa phanh"
+   }
+  ],
+  "phanh-sau": [
+   {
+    "file": "part-rear-caliper.jpg",
+    "title": "Honda rear brake caliper.jpg",
+    "author": "MAbbey",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Honda_rear_brake_caliper.jpg",
+    "caption": "Ngàm phanh sau trên xe máy"
+   }
+  ],
+  "banh-truoc": [
+   {
+    "file": "part-vinfast-front-wheel.jpg",
+    "title": "Newone - VinFast Theon black 014.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_VinFast_Theon_black_014.jpg",
+    "caption": "Bánh trước, phuộc và phanh đĩa trên xe VinFast Theon"
+   }
+  ],
+  "xich": [
+   {
+    "file": "part-chain-sprocket.jpg",
+    "title": "Day 46 Cy365 Geared Up (61099044).jpeg",
+    "author": "Makia Minich",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Day_46_Cy365_Geared_Up_(61099044).jpeg",
+    "caption": "Xích và nhông sau, có bộ tăng xích ở đầu trục bánh"
+   }
+  ],
+  "giam-xoc-sau": [
+   {
+    "file": "part-rear-shock.jpg",
+    "title": "GSXR Shock (3639723588).jpg",
+    "author": "Andrew Napier",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:GSXR_Shock_(3639723588).jpg",
+    "caption": "Giảm xóc sau: lò xo trụ bọc ngoài ống giảm chấn dầu"
+   }
+  ],
+  "dong-ho": [
+   {
+    "file": "part-ev-dashboard.jpg",
+    "title": "GenZe Electric Scooter 2.0s dashboard - June 2018 (1998).jpg",
+    "author": "Gregory Varnum",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:GenZe_Electric_Scooter_2.0s_dashboard_-_June_2018_(1998).jpg",
+    "caption": "Đồng hồ xe tay ga điện: tốc độ, % pin, chế độ ECO/SPORT"
+   }
+  ],
+  "den-pha": [
+   {
+    "file": "part-headlight.jpg",
+    "title": "Honda Zoomer Dual Headlight.JPG",
+    "author": "Khaosaming",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Honda_Zoomer_Dual_Headlight.JPG",
+    "caption": "Cụm đèn pha xe tay ga"
+   }
+  ]
+ }
+}
