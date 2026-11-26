@@ -517,7 +517,7 @@ export function makeScooter(cfg) {
     id: cfg.id, brand: cfg.brand, name: cfg.name, kind: cfg.kind, accent: cfg.accent, style: cfg.style,
     vmax: cfg.vmax, pmax: cfg.pmax, voltage: cfg.voltage, socDrain: cfg.socDrain ?? 0.3,
     drive, battery: cfg.battery, dualBattery: dual, driveTrain, rearR: R, ratio: cfg.ratio ?? 1,
-    summary: cfg.summary, layoutNote: cfg.layoutNote, sources: cfg.sources ?? [],
+    summary: cfg.summary, layoutNote: cfg.layoutNote, sources: cfg.sources ?? [], officialUrl: cfg.officialUrl,
     camera: { pos: [1.9 + dxf, 1.3, 2.4], target: [0, 0.5, 0] },
     parts, wires,
   };

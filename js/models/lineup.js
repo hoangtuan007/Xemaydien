@@ -6,7 +6,7 @@ import weaver from './datbike-weaver.js';
 const LFP_NOTE = 'Pin LFP (Lithium Sắt Photphat): bền chu kỳ, ít nguy cơ cháy nổ hơn pin NMC, chịu nhiệt tốt.';
 
 const evo = makeScooter({
-  id: 'evo200', brand: 'VinFast', name: 'Evo200', kind: 'Xe tay ga · động cơ in-hub bánh sau', accent: '#1f8fd6',
+  id: 'evo200', officialUrl: 'https://shop.vinfastauto.com/vn_en/xe-may-dien-zgoo.html', brand: 'VinFast', name: 'Evo200', kind: 'Xe tay ga · động cơ in-hub bánh sau', accent: '#1f8fd6',
   style: 'modern', drive: 'hub', battery: 'floor', headlight: 'v', wheelInch: 12,
   colors: { body: 0x1f8fd6, trim: 0xf2f4f7, seat: 0x2a211c, rim: 0x2b2f36 },
   vmax: 70, pmax: 2500, voltage: 60, socDrain: 0.35,
@@ -48,7 +48,7 @@ const klara = makeScooter({
 });
 
 const vento = makeScooter({
-  id: 'vento-s', brand: 'VinFast', name: 'Vento S', kind: 'Xe tay ga thể thao · động cơ đặt bên + dây đai', accent: '#d62828',
+  id: 'vento-s', officialUrl: 'https://shop.vinfastauto.com/vn_en/xe-may-dien-vento-s.html', brand: 'VinFast', name: 'Vento S', kind: 'Xe tay ga thể thao · động cơ đặt bên + dây đai', accent: '#d62828',
   style: 'sport', drive: 'side-belt', battery: 'floor', headlight: 'twin', wheelInch: 14, ratio: 2.6,
   colors: { body: 0x59626c, trim: 0x1d1f23, seat: 0x1a1a1a, rim: 0x1d1f23, stripe: 0xd62828, spring: 0xd62828 },
   vmax: 89, pmax: 5200, voltage: 72, socDrain: 0.4,
@@ -61,7 +61,7 @@ const vento = makeScooter({
 });
 
 const theon = makeScooter({
-  id: 'theon-s', brand: 'VinFast', name: 'Theon S', kind: 'Xe tay ga cao cấp · động cơ đặt giữa + xích', accent: '#c9a227',
+  id: 'theon-s', officialUrl: 'https://shop.vinfastauto.com/vn_en/bike-theon.html', brand: 'VinFast', name: 'Theon S', kind: 'Xe tay ga cao cấp · động cơ đặt giữa + xích', accent: '#c9a227',
   style: 'sport', drive: 'mid-chain', battery: 'floor-big', headlight: 'bar', wheelInch: 14, ratio: 2.8,
   colors: { body: 0x23272d, trim: 0x111316, seat: 0x3b2a20, rim: 0x111316, stripe: 0xc9a227, spring: 0xc9a227, motor: 0xc9a227 },
   vmax: 99, pmax: 7100, voltage: 72, socDrain: 0.5, batteryColor: 0x2a2f38,
@@ -75,7 +75,7 @@ const theon = makeScooter({
 
 const quantumNote = 'Quantum dùng truyền động xích (theo bài trải nghiệm của VnReview). Vị trí đặt động cơ trong mô hình là giả định để minh hoạ, chưa đối chiếu bản vẽ của hãng.';
 const quantumS1 = makeScooter({
-  id: 'quantum-s1', brand: 'Dat Bike', name: 'Quantum S1', kind: 'Xe tay ga cỡ lớn · truyền động xích · pin 6,4 kWh', accent: '#3d5a80',
+  id: 'quantum-s1', officialUrl: 'https://dat.bike/en/xe-may-dien-quantum-en/', brand: 'Dat Bike', name: 'Quantum S1', kind: 'Xe tay ga cỡ lớn · truyền động xích · pin 6,4 kWh', accent: '#3d5a80',
   style: 'maxi', drive: 'mid-chain', battery: 'floor-big', headlight: 'bar', wheelInch: 14, ratio: 2.8,
   colors: { body: 0x3d4650, trim: 0x1d1f23, seat: 0x1c1c1c, rim: 0x1d1f23, stripe: 0x9fb3c8, motor: 0x9fb3c8 },
   vmax: 90, pmax: 7000, voltage: 72, socDrain: 0.25, batteryColor: 0x2a2f38, dashName: 'Màn hình TFT',
@@ -89,7 +89,7 @@ const quantumS1 = makeScooter({
 });
 
 const quantumS3 = makeScooter({
-  id: 'quantum-s3', brand: 'Dat Bike', name: 'Quantum S3', kind: 'Xe tay ga cỡ lớn · truyền động xích · pin 4,3 kWh', accent: '#8d99ae',
+  id: 'quantum-s3', officialUrl: 'https://dat.bike/en/pages/quantum-s3', brand: 'Dat Bike', name: 'Quantum S3', kind: 'Xe tay ga cỡ lớn · truyền động xích · pin 4,3 kWh', accent: '#8d99ae',
   style: 'maxi', drive: 'mid-chain', battery: 'floor', headlight: 'bar', wheelInch: 14, ratio: 2.8,
   colors: { body: 0xe8eaec, trim: 0x2b2d33, seat: 0x1c1c1c, rim: 0x2b2d33, stripe: 0x3d5a80, motor: 0x8d99ae },
   vmax: 90, pmax: 6000, voltage: 72, socDrain: 0.35, dashName: 'Màn hình TFT',

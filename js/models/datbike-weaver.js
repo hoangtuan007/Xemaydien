@@ -249,6 +249,7 @@ export default {
   kind: 'Xe số điện dáng cổ điển · động cơ đặt giữa + xích',
   accent: '#5f7355',
   style: 'naked',
+  officialUrl: 'https://dat.bike/en/pages/weaver-plus-plus',
   drive: 'mid-chain',
   battery: 'frame',
   driveTrain: ['xich', 'banh-sau'],

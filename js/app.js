@@ -1041,6 +1041,7 @@ function renderAbout() {
     <dl class="specs">${M.summary.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
     <p class="note">${esc(M.layoutNote)}</p>
     ${modelPhotos(M).length ? `<div class="photo-strip">${modelPhotos(M).map((ph, i) => `<button class="ps-thumb" data-photo="${i}" aria-label="Xem ảnh ${i + 1}"><img src="${photoUrl(ph)}" alt="" loading="lazy"></button>`).join('')}</div><p class="tiny muted">Ảnh xe thật: ${modelPhotos(M).map((ph) => credit(ph)).join(' — ')}</p>` : ''}
+    ${M.officialUrl ? `<p><a class="btn" href="${esc(M.officialUrl)}" target="_blank" rel="noopener">Xem ảnh & thông số trên trang ${esc(M.brand)} ↗</a></p>` : ''}
     ${M.sources?.length ? `<p class="tiny muted">Nguồn: ${M.sources.map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join(' · ')}</p>` : ''}
     <p class="muted tiny">Thông số tham khảo từ công bố của hãng và báo chí; mô hình 3D, vị trí linh kiện và đường dây là mô phỏng đơn giản hoá để học tập, không phải tài liệu sửa chữa chính hãng.</p>`;
 }
